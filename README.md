@@ -30,7 +30,7 @@
 - **可视化：** QGIS 3.x / CesiumJS
 
 ## 可视化结果预览
-![等时圈与盲区分析结果](./visuals/isochrone_map.png)
+![等时圈与盲区分析结果](visuals/等时圈分析结果截图.png)
 
 ## 如何运行
 1. 安装依赖：`pip install -r requirements.txt`
