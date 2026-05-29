@@ -1,5 +1,5 @@
 # Campus-GIS-Path-Optimization
-# 🏫 智慧校园空间分析算法引擎 (Smart Campus GIS Engine)
+# 智慧校园空间分析算法引擎 (Smart Campus GIS Engine)
 
 ## 项目定位
 本项目由旨在利用 **Python + 图论算法** 对校园生活服务设施进行全方位的可达性量化评估与空间优化。
