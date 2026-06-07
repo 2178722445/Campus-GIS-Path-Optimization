@@ -1,119 +1,106 @@
 import os
+import json
 import geopandas as gpd
 import networkx as nx
-import json
 from shapely.geometry import Point, MultiPoint, mapping
 
-# 设置运行环境
-current_dir = os.path.dirname(os.path.abspath(__file__))
-os.chdir(current_dir)
+def run_isochrone_analysis(target_id=None):
+    """
+    等时圈分析核心模块
+    :param target_id: 可选，指定分析某个特定设施的ID。若为None则分析所有设施。
+    :return: 标准化结果列表
+    """
+    # 1. 路径定位
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    roads_path = os.path.join(base_path, '04_paths_or_roads.geojson')
+    objects_path = os.path.join(base_path, '03_campus_objects.json')
 
-def run_isochrone_analysis():
-    # 1. 读取路网数据
-    print("正在加载路网数据...")
-    roads = gpd.read_file('04_paths_or_roads.geojson')
-    # 转为米制坐标 EPSG:3857，方便计算真实距离
-    roads = roads.to_crs(epsg=3857)
-    
-    # 2. 构建路网模型 (Graph)
+    if not os.path.exists(roads_path) or not os.path.exists(objects_path):
+        print(f"错误：在 {base_path} 找不到必要的数据文件。")
+        return []
+
+    # 2. 构建路网拓扑 (米制坐标系计算)
+    roads = gpd.read_file(roads_path).to_crs(epsg=3857)
     G = nx.Graph()
-    print("正在构建路网拓扑结构...")
     for _, row in roads.iterrows():
         coords = list(row.geometry.coords)
         for i in range(len(coords) - 1):
             p1, p2 = coords[i], coords[i+1]
             dist = Point(p1).distance(Point(p2))
-            # 权重 = 通行时间 (秒) = 距离 / 步行速度(1.2m/s)
-            weight = dist / 1.2 
-            G.add_edge(p1, p2, weight=weight)
+            G.add_edge(p1, p2, weight=dist/1.2) # 步行速度1.2m/s
 
-    # 3. 读取设施点数据
-    with open('03_campus_objects.json', 'r', encoding='utf-8') as f:
+    # 3. 读取设施点
+    with open(objects_path, 'r', encoding='utf-8') as f:
         facilities_data = json.load(f)
+    
+    features_list = facilities_data['features'] if 'features' in facilities_data else facilities_data
 
-    # 4. 等时圈分析参数 (5, 10, 15分钟)
+    # 4. 参数配置
     time_limits = [300, 600, 900] 
-    # 样式配置（颜色对应等级）
     styles = {
-        300: {"color": "#28a745", "opacity": 0.6}, # 绿色
-        600: {"color": "#ffc107", "opacity": 0.5}, # 黄色
-        900: {"color": "#dc3545", "opacity": 0.4}  # 红色
+        300: {"color": "#28a745", "opacity": 0.6}, # 绿色 (5min)
+        600: {"color": "#ffc107", "opacity": 0.5}, # 黄色 (10min)
+        900: {"color": "#dc3545", "opacity": 0.4}  # 红色 (15min)
     }
 
     results = []
-
-    # 5. 处理设施点列表
-    if isinstance(facilities_data, dict) and 'features' in facilities_data:
-        features_list = facilities_data['features']
-    else:
-        features_list = facilities_data 
-
-    print(f"检测到 {len(features_list)} 个设施点，开始执行空间分析...")
-
-    # 获取路网所有节点坐标，用于查找最近点
     nodes_list = list(G.nodes)
-    
+
+    # 5. 执行循环分析
     for feat in features_list:
-        # 获取 objectId
-        if 'properties' in feat:
-            obj_id = feat['properties'].get('objectId', 'unknown')
-        else:
-            obj_id = feat.get('objectId', 'unknown')
+        # 获取ID和名称
+        props = feat.get('properties', feat)
+        obj_id = props.get('objectId', 'unknown')
+        obj_name = props.get('name', '未命名设施')
 
-        # 获取坐标 (lon, lat)
-        if 'geometry' in feat:
-            lon, lat = feat['geometry']['coordinates']
-        else:
-            lon, lat = feat.get('coordinates', [0, 0]) 
-
-        # --- 核心逻辑开始：计算等时圈 ---
-        
-        # 将设施点经纬度转为米制坐标
-        point_geom = gpd.GeoSeries([Point(lon, lat)], crs="EPSG:4326").to_crs(epsg=3857)
-        center_coords = (point_geom.iloc[0].x, point_geom.iloc[0].y)
-
-        # 在路网图中找到距离设施点最近的节点
-        try:
-            source_node = min(nodes_list, key=lambda n: Point(n).distance(Point(center_coords)))
-        except:
-            print(f"⚠️ 设施 {obj_id} 附近找不到路网，跳过。")
+        # 如果指定了分析某个ID，不匹配的跳过
+        if target_id and obj_id != target_id:
             continue
 
+        # 获取经纬度并转为米制坐标
+        geom = feat.get('geometry', {})
+        lon, lat = geom.get('coordinates', [0,0])
+        p_m = gpd.GeoSeries([Point(lon, lat)], crs="EPSG:4326").to_crs(epsg=3857)[0]
+        
+        # 寻找路网最近点
+        source_node = min(nodes_list, key=lambda n: Point(n).distance(p_m))
+
         for idx, t in enumerate(time_limits):
-            # 使用 Dijkstra 算法计算可达范围
+            # Dijkstra 算法搜索
             subgraph_nodes = nx.single_source_dijkstra_path_length(G, source_node, cutoff=t, weight='weight')
             
-            # 调试信息：输出每个圈搜到了多少点
-            # print(f"DEBUG: {obj_id} - {t}s 搜到节点: {len(subgraph_nodes)}")
-
-            if len(subgraph_nodes) < 3:
-                continue # 节点太少无法围成面
+            if len(subgraph_nodes) < 3: continue
             
-            # 生成多边形 (凸包)
-            pts = MultiPoint(list(subgraph_nodes.keys()))
-            hull = pts.convex_hull
+            # 生成几何体 (凸包)
+            hull = MultiPoint(list(subgraph_nodes.keys())).convex_hull
+            # 计算面积 (扩展字段)
+            area_sqm = round(hull.area, 2)
             
-            # 将生成的几何体转回经纬度坐标系
+            # 转回经纬度
             hull_gdf = gpd.GeoSeries([hull], crs="EPSG:3857").to_crs(epsg=4326)
             
-            # 构造任务要求的 JSON 格式
+            # 字段封装
             res_item = {
-                "objectId": obj_id,
-                "value": t,
-                "level": idx + 1,
+                "objectId": obj_id,   
+                "value": t,                  # 时间阈值
+                "level": idx + 1,            # 1/2/3级
                 "label": f"{t//60}分钟服务圈",
-                "style": styles[t],
-                "description": f"设施 {obj_id} 步行 {t//60} 分钟可达区域",
-                "geometry": mapping(hull_gdf.iloc[0]) 
+                "style": styles[t],          #含颜色和透明度
+                "description": f"从{obj_name}出发步行{t//60}分钟可达范围", 
+                "geometry": mapping(hull_gdf.iloc[0]), # GeoJSON格式
+                #  扩展字段 
+                "area_sqm": area_sqm,        # 覆盖面积
+                "reachable_nodes": len(subgraph_nodes) # 覆盖路网节点数
             }
             results.append(res_item)
-        
-        print(f"设施 {obj_id} 分析完成")
+    print(f"设施 {obj_id} 分析完成")
 
-    # 7. 保存最终结果
-    output_filename = 'analysis_result_isochrone.json'
+    # --- 7. 保存最终结果 (集成用) ---
+    output_filename = os.path.join(base_path, 'analysis_result_isochrone.json')
     with open(output_filename, 'w', encoding='utf-8') as f:
         json.dump(results, f, ensure_ascii=False, indent=4)
+
+    # 8. 生成 QGIS 预览文件
     preview_geojson = {
         "type": "FeatureCollection",
         "features": []
@@ -130,13 +117,15 @@ def run_isochrone_analysis():
         }
         preview_geojson["features"].append(feature)
 
-    with open('qgis_preview.geojson', 'w', encoding='utf-8') as f:
+    preview_filename = os.path.join(base_path, 'qgis_preview.geojson')
+    with open(preview_filename, 'w', encoding='utf-8') as f:
         json.dump(preview_geojson, f, ensure_ascii=False, indent=4)
     
-    print("✅ 已额外生成 QGIS 预览文件: qgis_preview.geojson")
-    print(f"\n全部任务完成！")
-    print(f"结果已保存至: {os.path.abspath(output_filename)}")
-    print(f"总计生成分析要素: {len(results)} 个")
+    print(f"\n标准化分析完成！")
+    print(f"1. 集成文件已生成: {output_filename}")
+    print(f"2. QGIS预览文件已生成: {preview_filename}")
+    
+    return results # 注意这里是 results，不是 res
 
 if __name__ == "__main__":
-    run_isochrone_analysis()
+    data = run_isochrone_analysis()
