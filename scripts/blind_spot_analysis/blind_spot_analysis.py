@@ -4,6 +4,7 @@ import json
 from shapely.geometry import shape, mapping
 
 def identify_blind_spots():
+    print("--- 盲区算法已触发 ---")
     # 1. 自动获取当前脚本所在的文件夹路径，解决找不到文件的问题
     current_dir = os.path.dirname(os.path.abspath(__file__))
     
@@ -103,6 +104,6 @@ def identify_blind_spots():
     print(f"✅ 已生成 QGIS 预览文件: {preview_path}")
     print(f"✅ 算法执行成功！发现 {len(results)} 处盲区。")
     print(f"分析结果已保存至: {output_path}")
-
+    return results
 if __name__ == "__main__":
     identify_blind_spots()

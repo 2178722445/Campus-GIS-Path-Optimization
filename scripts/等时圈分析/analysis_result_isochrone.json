@@ -3,12 +3,12 @@
         "objectId": "canteen_01",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "新月餐厅 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从新月餐厅出发步行5分钟可达范围",
+        "description": "从 新月餐厅 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -31,20 +31,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 73.83,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "canteen_01",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "新月餐厅 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从新月餐厅出发步行10分钟可达范围",
+        "description": "从 新月餐厅 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -79,20 +77,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 206640.02,
-        "reachable_nodes": 13
+        }
     },
     {
         "objectId": "canteen_01",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "新月餐厅 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从新月餐厅出发步行15分钟可达范围",
+        "description": "从 新月餐厅 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -135,20 +131,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 549961.45,
-        "reachable_nodes": 41
+        }
     },
     {
         "objectId": "canteen_02",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "朝阳餐厅 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从朝阳餐厅出发步行5分钟可达范围",
+        "description": "从 朝阳餐厅 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -171,20 +165,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "canteen_02",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "朝阳餐厅 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从朝阳餐厅出发步行10分钟可达范围",
+        "description": "从 朝阳餐厅 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -207,20 +199,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "canteen_02",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "朝阳餐厅 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从朝阳餐厅出发步行15分钟可达范围",
+        "description": "从 朝阳餐厅 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -243,20 +233,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "canteen_03",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "食堂 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从食堂出发步行5分钟可达范围",
+        "description": "从 食堂 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -279,20 +267,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "canteen_03",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "食堂 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从食堂出发步行10分钟可达范围",
+        "description": "从 食堂 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -315,20 +301,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "canteen_03",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "食堂 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从食堂出发步行15分钟可达范围",
+        "description": "从 食堂 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -351,20 +335,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "canteen_04",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "百苑餐厅 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从百苑餐厅出发步行5分钟可达范围",
+        "description": "从 百苑餐厅 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -399,20 +381,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 97026.39,
-        "reachable_nodes": 14
+        }
     },
     {
         "objectId": "canteen_04",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "百苑餐厅 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从百苑餐厅出发步行10分钟可达范围",
+        "description": "从 百苑餐厅 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -451,20 +431,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 243505.49,
-        "reachable_nodes": 21
+        }
     },
     {
         "objectId": "canteen_04",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "百苑餐厅 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从百苑餐厅出发步行15分钟可达范围",
+        "description": "从 百苑餐厅 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -507,20 +485,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 366736.25,
-        "reachable_nodes": 29
+        }
     },
     {
         "objectId": "print_01",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_01 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_01 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -559,20 +535,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 85244.77,
-        "reachable_nodes": 13
+        }
     },
     {
         "objectId": "print_01",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_01 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_01 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -615,20 +589,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 461833.57,
-        "reachable_nodes": 46
+        }
     },
     {
         "objectId": "print_01",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_01 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_01 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -691,20 +663,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 780540.04,
-        "reachable_nodes": 75
+        }
     },
     {
         "objectId": "print_02",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_02 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_02 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -739,20 +709,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 128233.76,
-        "reachable_nodes": 16
+        }
     },
     {
         "objectId": "print_02",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_02 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_02 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -791,20 +759,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 397955.14,
-        "reachable_nodes": 39
+        }
     },
     {
         "objectId": "print_02",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_02 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_02 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -851,20 +817,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 566167.63,
-        "reachable_nodes": 60
+        }
     },
     {
         "objectId": "print_03",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_03 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_03 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -887,20 +851,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "print_03",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_03 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_03 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -923,20 +885,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "print_03",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_03 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_03 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -959,20 +919,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 78.95,
-        "reachable_nodes": 3
+        }
     },
     {
         "objectId": "print_04",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_04 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_04 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -995,20 +953,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 73565.49,
-        "reachable_nodes": 13
+        }
     },
     {
         "objectId": "print_04",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_04 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_04 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1047,20 +1003,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 342774.07,
-        "reachable_nodes": 38
+        }
     },
     {
         "objectId": "print_04",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_04 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_04 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1115,20 +1069,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 544439.72,
-        "reachable_nodes": 55
+        }
     },
     {
         "objectId": "print_05",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_05 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_05 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1163,20 +1115,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 168604.86,
-        "reachable_nodes": 26
+        }
     },
     {
         "objectId": "print_05",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_05 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_05 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1227,20 +1177,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 360054.49,
-        "reachable_nodes": 44
+        }
     },
     {
         "objectId": "print_05",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_05 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_05 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1287,20 +1235,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 564945.59,
-        "reachable_nodes": 63
+        }
     },
     {
         "objectId": "print_06",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_06 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_06 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1335,20 +1281,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 112865.19,
-        "reachable_nodes": 13
+        }
     },
     {
         "objectId": "print_06",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_06 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_06 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1391,20 +1335,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 461833.57,
-        "reachable_nodes": 46
+        }
     },
     {
         "objectId": "print_06",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_06 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_06 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1467,20 +1409,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 780540.04,
-        "reachable_nodes": 76
+        }
     },
     {
         "objectId": "print_07",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_07 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_07 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1527,20 +1467,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 180187.79,
-        "reachable_nodes": 27
+        }
     },
     {
         "objectId": "print_07",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_07 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_07 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1587,20 +1525,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 352194.78,
-        "reachable_nodes": 43
+        }
     },
     {
         "objectId": "print_07",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_07 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_07 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1643,20 +1579,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 708230.44,
-        "reachable_nodes": 67
+        }
     },
     {
         "objectId": "print_08",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_08 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_08 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1687,20 +1621,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 31779.41,
-        "reachable_nodes": 7
+        }
     },
     {
         "objectId": "print_08",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_08 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_08 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1747,20 +1679,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 187151.23,
-        "reachable_nodes": 19
+        }
     },
     {
         "objectId": "print_08",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_08 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_08 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1815,20 +1745,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 332930.7,
-        "reachable_nodes": 36
+        }
     },
     {
         "objectId": "print_09",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_09 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_09 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1855,20 +1783,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 11961.8,
-        "reachable_nodes": 4
+        }
     },
     {
         "objectId": "print_09",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_09 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_09 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1903,20 +1829,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 96722.32,
-        "reachable_nodes": 8
+        }
     },
     {
         "objectId": "print_09",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_09 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_09 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -1959,20 +1883,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 135936.39,
-        "reachable_nodes": 15
+        }
     },
     {
         "objectId": "print_10",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "print_10 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 print_10 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2007,20 +1929,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 41775.36,
-        "reachable_nodes": 11
+        }
     },
     {
         "objectId": "print_10",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "print_10 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 print_10 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2063,20 +1983,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 207935.37,
-        "reachable_nodes": 35
+        }
     },
     {
         "objectId": "print_10",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "print_10 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 print_10 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2123,20 +2041,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 461480.14,
-        "reachable_nodes": 55
+        }
     },
     {
         "objectId": "park_01",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "park_01 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 park_01 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2175,20 +2091,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 113415.53,
-        "reachable_nodes": 20
+        }
     },
     {
         "objectId": "park_01",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "park_01 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 park_01 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2235,20 +2149,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 269986.38,
-        "reachable_nodes": 43
+        }
     },
     {
         "objectId": "park_01",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "park_01 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 park_01 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2291,20 +2203,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 501881.3,
-        "reachable_nodes": 57
+        }
     },
     {
         "objectId": "park_02",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "park_02 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 park_02 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2339,20 +2249,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 83154.74,
-        "reachable_nodes": 11
+        }
     },
     {
         "objectId": "park_02",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "park_02 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 park_02 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2395,20 +2303,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 367158.17,
-        "reachable_nodes": 31
+        }
     },
     {
         "objectId": "park_02",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "park_02 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 park_02 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2451,20 +2357,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 541968.12,
-        "reachable_nodes": 56
+        }
     },
     {
         "objectId": "park_03",
         "value": 300,
         "level": 1,
-        "label": "5分钟服务圈",
+        "label": "park_03 5分钟服务圈",
         "style": {
             "color": "#28a745",
             "opacity": 0.6
         },
-        "description": "从None出发步行5分钟可达范围",
+        "description": "从 park_03 出发步行 5 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2495,20 +2399,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 11644.0,
-        "reachable_nodes": 7
+        }
     },
     {
         "objectId": "park_03",
         "value": 600,
         "level": 2,
-        "label": "10分钟服务圈",
+        "label": "park_03 10分钟服务圈",
         "style": {
             "color": "#ffc107",
             "opacity": 0.5
         },
-        "description": "从None出发步行10分钟可达范围",
+        "description": "从 park_03 出发步行 10 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2543,20 +2445,18 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 128359.31,
-        "reachable_nodes": 13
+        }
     },
     {
         "objectId": "park_03",
         "value": 900,
         "level": 3,
-        "label": "15分钟服务圈",
+        "label": "park_03 15分钟服务圈",
         "style": {
             "color": "#dc3545",
             "opacity": 0.4
         },
-        "description": "从None出发步行15分钟可达范围",
+        "description": "从 park_03 出发步行 15 分钟可达范围",
         "geometry": {
             "type": "Polygon",
             "coordinates": [
@@ -2603,8 +2503,6 @@
                     ]
                 ]
             ]
-        },
-        "area_sqm": 453932.28,
-        "reachable_nodes": 38
+        }
     }
 ]

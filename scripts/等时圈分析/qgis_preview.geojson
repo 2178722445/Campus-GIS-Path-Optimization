@@ -6,7 +6,7 @@
             "properties": {
                 "objectId": "canteen_01",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "新月餐厅 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -37,7 +37,7 @@
             "properties": {
                 "objectId": "canteen_01",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "新月餐厅 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -80,7 +80,7 @@
             "properties": {
                 "objectId": "canteen_01",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "新月餐厅 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -131,7 +131,7 @@
             "properties": {
                 "objectId": "canteen_02",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "朝阳餐厅 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -162,7 +162,7 @@
             "properties": {
                 "objectId": "canteen_02",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "朝阳餐厅 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -193,7 +193,7 @@
             "properties": {
                 "objectId": "canteen_02",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "朝阳餐厅 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -224,7 +224,7 @@
             "properties": {
                 "objectId": "canteen_03",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "食堂 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -255,7 +255,7 @@
             "properties": {
                 "objectId": "canteen_03",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "食堂 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -286,7 +286,7 @@
             "properties": {
                 "objectId": "canteen_03",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "食堂 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -317,7 +317,7 @@
             "properties": {
                 "objectId": "canteen_04",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "百苑餐厅 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -360,7 +360,7 @@
             "properties": {
                 "objectId": "canteen_04",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "百苑餐厅 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -407,7 +407,7 @@
             "properties": {
                 "objectId": "canteen_04",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "百苑餐厅 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -458,7 +458,7 @@
             "properties": {
                 "objectId": "print_01",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_01 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -505,7 +505,7 @@
             "properties": {
                 "objectId": "print_01",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_01 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -556,7 +556,7 @@
             "properties": {
                 "objectId": "print_01",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_01 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -627,7 +627,7 @@
             "properties": {
                 "objectId": "print_02",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_02 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -670,7 +670,7 @@
             "properties": {
                 "objectId": "print_02",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_02 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -717,7 +717,7 @@
             "properties": {
                 "objectId": "print_02",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_02 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -772,7 +772,7 @@
             "properties": {
                 "objectId": "print_03",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_03 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -803,7 +803,7 @@
             "properties": {
                 "objectId": "print_03",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_03 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -834,7 +834,7 @@
             "properties": {
                 "objectId": "print_03",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_03 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -865,7 +865,7 @@
             "properties": {
                 "objectId": "print_04",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_04 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -896,7 +896,7 @@
             "properties": {
                 "objectId": "print_04",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_04 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -943,7 +943,7 @@
             "properties": {
                 "objectId": "print_04",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_04 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1006,7 +1006,7 @@
             "properties": {
                 "objectId": "print_05",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_05 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1049,7 +1049,7 @@
             "properties": {
                 "objectId": "print_05",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_05 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1108,7 +1108,7 @@
             "properties": {
                 "objectId": "print_05",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_05 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1163,7 +1163,7 @@
             "properties": {
                 "objectId": "print_06",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_06 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1206,7 +1206,7 @@
             "properties": {
                 "objectId": "print_06",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_06 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1257,7 +1257,7 @@
             "properties": {
                 "objectId": "print_06",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_06 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1328,7 +1328,7 @@
             "properties": {
                 "objectId": "print_07",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_07 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1383,7 +1383,7 @@
             "properties": {
                 "objectId": "print_07",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_07 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1438,7 +1438,7 @@
             "properties": {
                 "objectId": "print_07",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_07 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1489,7 +1489,7 @@
             "properties": {
                 "objectId": "print_08",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_08 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1528,7 +1528,7 @@
             "properties": {
                 "objectId": "print_08",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_08 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1583,7 +1583,7 @@
             "properties": {
                 "objectId": "print_08",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_08 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1646,7 +1646,7 @@
             "properties": {
                 "objectId": "print_09",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_09 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1681,7 +1681,7 @@
             "properties": {
                 "objectId": "print_09",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_09 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1724,7 +1724,7 @@
             "properties": {
                 "objectId": "print_09",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_09 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1775,7 +1775,7 @@
             "properties": {
                 "objectId": "print_10",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "print_10 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1818,7 +1818,7 @@
             "properties": {
                 "objectId": "print_10",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "print_10 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1869,7 +1869,7 @@
             "properties": {
                 "objectId": "print_10",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "print_10 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1924,7 +1924,7 @@
             "properties": {
                 "objectId": "park_01",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "park_01 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -1971,7 +1971,7 @@
             "properties": {
                 "objectId": "park_01",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "park_01 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2026,7 +2026,7 @@
             "properties": {
                 "objectId": "park_01",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "park_01 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2077,7 +2077,7 @@
             "properties": {
                 "objectId": "park_02",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "park_02 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2120,7 +2120,7 @@
             "properties": {
                 "objectId": "park_02",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "park_02 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2171,7 +2171,7 @@
             "properties": {
                 "objectId": "park_02",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "park_02 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2222,7 +2222,7 @@
             "properties": {
                 "objectId": "park_03",
                 "level": 1,
-                "label": "5分钟服务圈"
+                "label": "park_03 5分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2261,7 +2261,7 @@
             "properties": {
                 "objectId": "park_03",
                 "level": 2,
-                "label": "10分钟服务圈"
+                "label": "park_03 10分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",
@@ -2304,7 +2304,7 @@
             "properties": {
                 "objectId": "park_03",
                 "level": 3,
-                "label": "15分钟服务圈"
+                "label": "park_03 15分钟服务圈"
             },
             "geometry": {
                 "type": "Polygon",

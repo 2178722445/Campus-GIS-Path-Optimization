@@ -1,0 +1,56 @@
+[
+    {
+        "objectId": "print_03",
+        "value": 245.47,
+        "level": 1,
+        "label": "最近设施: None",
+        "style": {
+            "color": "#007bff",
+            "opacity": 0.9
+        },
+        "description": "距离查询点 245.47 米",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                103.72190823652137,
+                36.10579681002391
+            ]
+        }
+    },
+    {
+        "objectId": "print_01",
+        "value": 271.45,
+        "level": 1,
+        "label": "最近设施: None",
+        "style": {
+            "color": "#007bff",
+            "opacity": 0.9
+        },
+        "description": "距离查询点 271.45 米",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                103.72291759829365,
+                36.10574073436993
+            ]
+        }
+    },
+    {
+        "objectId": "canteen_01",
+        "value": 276.92,
+        "level": 1,
+        "label": "最近设施: 新月餐厅",
+        "style": {
+            "color": "#007bff",
+            "opacity": 0.9
+        },
+        "description": "距离查询点 276.92 米",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                103.71982848947111,
+                36.106786380388904
+            ]
+        }
+    }
+]
