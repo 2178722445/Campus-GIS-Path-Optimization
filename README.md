@@ -10,7 +10,8 @@
 
 ##  成果展示
 ![系统主界面](./visuals/等时圈分析三维可视化.png)
-*图：基于 Cesium 的校园 3D 分析可视化效果*
+![系统主界面](./visuals/服务分区三维可视化.png)
+*图：前端基于 Cesium 的校园 3D 分析可视化效果*
 
 ##  快速启动
 1. **环境准备**：`pip install -r requirements.txt`
