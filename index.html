@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>智慧校园三维分析集成系统 - 第七组正式版</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.105/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.105/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <style>
+        html, body, #cesiumContainer { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; background: #000; }
+        .ui-panel { position: absolute; left: 20px; top: 20px; background: rgba(15, 15, 15, 0.9); color: #fff; padding: 20px; border-radius: 12px; border: 2px solid #00d2ff; z-index: 10; width: 210px; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); font-family: "Microsoft YaHei"; }
+        .instruction-panel { position: absolute; right: 60px; top: 20px; background: rgba(0, 0, 0, 0.8); color: #00ff00; padding: 15px; border-radius: 8px; border: 1px solid #00ff00; z-index: 10; width: 220px; font-size: 13px; line-height: 1.6; pointer-events: none; }
+        h2, h3 { margin: 0 0 10px 0; color: #00d2ff; text-align: center; }
+        .btn { display: block; width: 100%; padding: 10px; margin: 8px 0; background: #222; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 6px; transition: 0.3s; font-size: 14px; }
+        .btn:hover { background: #00d2ff; color: #000; font-weight: bold; }
+        .btn-clear { background: #800; border: none; margin-top: 20px; }
+        #loading-mask { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #00d2ff; padding: 20px; border-radius: 10px; display: none; z-index: 100; }
+    </style>
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+    <div id="loading-mask"> 正在调取 Python 算法...</div>
+
+    <div class="instruction-panel">
+        <h3 style="color:#00ff00; font-size:16px; border-bottom:1px solid #00ff00; padding-bottom:5px;">操作手册</h3>
+        1. 确保 app.py 已启动<br>
+        2. 点击左侧按钮触发空间分析<br>
+        3. <b>右上角按钮</b>可切换平面/3D<br>
+        4. 滚轮缩放，按住旋转视角
+    </div>
+
+    <div class="ui-panel">
+        <h2>分析平台</h2>
+        <button class="btn" onclick="loadAnalysis('isochrone')"> 步行等时圈分析</button>
+        <button class="btn" onclick="loadAnalysis('path')"> 最短路径规划</button>
+        <button class="btn" onclick="loadAnalysis('knn')"> 最近设施检索</button>
+        <button class="btn" onclick="loadAnalysis('voronoi')"> 食堂服务分区</button>
+        <button class="btn" onclick="loadAnalysis('blind_spot')"> 覆盖盲区识别</button>
+        <button class="btn btn-clear" onclick="clearViewer()"> 清除所有结果</button>
+    </div>
+
+    <script>
+        // 【填入你的 TOKEN】
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MWI5OTA4Zi1iYjYwLTQ2OTctOGUyNy0wMjRiNmQ4OThmMTgiLCJpZCI6NDQ1NjUxLCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODE2OTA3NDl9.eyR4P5OpxtBfmvb1iCitHt2U-GbEM9RRumZEUyun3vo';
+
+        const viewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+                url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+            }),
+            terrainProvider: Cesium.createWorldTerrain(),
+            sceneModePicker: true, 
+            baseLayerPicker: false, geocoder: false, homeButton: false, 
+            navigationHelpButton: false, timeline: false, animation: false
+        });
+
+        viewer.scene.primitives.add(Cesium.createOsmBuildings());
+
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(103.722, 36.108, 1300),
+            orientation: { heading: 0, pitch: Cesium.Math.toRadians(-35) }
+        });
+
+        const API_BASE = "http://127.0.0.1:5000/api/analysis/";
+
+        async function loadAnalysis(type) {
+            document.getElementById('loading-mask').style.display = 'block';
+            try {
+                const response = await fetch(API_BASE + type);
+                const data = await response.json();
+                data.forEach(item => renderToCesium(item));
+                viewer.zoomTo(viewer.entities);
+            } catch (err) {
+                alert("无法连接到后端！");
+            } finally {
+                document.getElementById('loading-mask').style.display = 'none';
+            }
+        }
+
+        function renderToCesium(item) {
+            if (!item.geometry || !item.geometry.coordinates) return;
+            const geom = item.geometry;
+            const style = item.style || { color: "#00FF00", opacity: 0.6 };
+            const labelText = item.label || "分析要素";
+
+            // 1. 渲染面 (等时圈, 盲区等)
+            if (geom.type === "Polygon") {
+                viewer.entities.add({
+                    name: labelText,
+                    polygon: {
+                        hierarchy: Cesium.Cartesian3.fromDegreesArray(geom.coordinates[0].flat()),
+                        classificationType: Cesium.ClassificationType.BOTH, 
+                        material: Cesium.Color.fromCssColorString(style.color).withAlpha(style.opacity),
+                        outline: true, outlineColor: Cesium.Color.WHITE
+                    },
+                    description: item.description
+                });
+            } 
+            // 2. 渲染线 (路径规划)
+            else if (geom.type === "LineString") {
+                viewer.entities.add({
+                    polyline: {
+                        positions: Cesium.Cartesian3.fromDegreesArray(geom.coordinates.flat()),
+                        width: 8,
+                        material: new Cesium.PolylineGlowMaterialProperty({
+                            glowPower: 0.25, color: Cesium.Color.fromCssColorString(style.color || "#ff4500")
+                        }),
+                        clampToGround: true 
+                    }
+                });
+            }
+            // 3. 渲染点 (最近邻设施) - 【本次核心修复点】
+            else if (geom.type === "Point") {
+                const lon = geom.coordinates[0];
+                const lat = geom.coordinates[1];
+                
+                viewer.entities.add({
+                    name: labelText,
+                    position: Cesium.Cartesian3.fromDegrees(lon, lat),
+                    point: { 
+                        pixelSize: 15, 
+                        color: Cesium.Color.CYAN, 
+                        outlineColor: Cesium.Color.WHITE, 
+                        outlineWidth: 3,
+                        // 修复1：将点紧贴地形/建筑表面
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        // 修复2：禁止深度测试，防止点被埋在楼房模型下面看不到
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY 
+                    },
+                    label: { 
+                        text: labelText, 
+                        font: 'bold 16px 微软雅黑',
+                        // 修复3：文字也设为贴地参考，并向上偏移防止重叠
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        pixelOffset: new Cesium.Cartesian2(0, -50), 
+                        showBackground: true,
+                        backgroundColor: new Cesium.Color(0,0,0,0.8),
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY 
+                    }
+                });
+            }
+        }
+        function clearViewer() { viewer.entities.removeAll(); }
+    </script>
+</body>
+</html>
