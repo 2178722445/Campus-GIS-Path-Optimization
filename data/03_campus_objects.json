@@ -1,24 +1,267 @@
 {
-"type": "FeatureCollection",
-"name": "03_campus_objects",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "fid": 1, "objectId": "canteen_01", "name": "新月餐厅" }, "geometry": { "type": "Point", "coordinates": [ 103.719828489471112, 36.106786380388904 ] } },
-{ "type": "Feature", "properties": { "fid": 2, "objectId": "canteen_02", "name": "朝阳餐厅" }, "geometry": { "type": "Point", "coordinates": [ 103.720267198999593, 36.105450460396192 ] } },
-{ "type": "Feature", "properties": { "fid": 3, "objectId": "canteen_03", "name": "食堂" }, "geometry": { "type": "Point", "coordinates": [ 103.719630575398071, 36.105633530913728 ] } },
-{ "type": "Feature", "properties": { "fid": 4, "objectId": "canteen_04", "name": "百苑餐厅" }, "geometry": { "type": "Point", "coordinates": [ 103.723536079771804, 36.110165763185307 ] } },
-{ "type": "Feature", "properties": { "fid": 5, "objectId": "print_01", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.722917598293648, 36.105740734369931 ] } },
-{ "type": "Feature", "properties": { "fid": 6, "objectId": "print_02", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.721858758003123, 36.105179977829742 ] } },
-{ "type": "Feature", "properties": { "fid": 7, "objectId": "print_03", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.721908236521372, 36.105796810023911 ] } },
-{ "type": "Feature", "properties": { "fid": 8, "objectId": "print_04", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.721641052522827, 36.104546652796166 ] } },
-{ "type": "Feature", "properties": { "fid": 9, "objectId": "print_05", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.72359050614179, 36.104919390966998 ] } },
-{ "type": "Feature", "properties": { "fid": 10, "objectId": "print_06", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.72391376579435, 36.105493341778683 ] } },
-{ "type": "Feature", "properties": { "fid": 11, "objectId": "print_07", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.723498146241056, 36.104246483118814 ] } },
-{ "type": "Feature", "properties": { "fid": 12, "objectId": "print_08", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.727502607651317, 36.111259238438585 ] } },
-{ "type": "Feature", "properties": { "fid": 13, "objectId": "print_09", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.727166153727211, 36.110312549456083 ] } },
-{ "type": "Feature", "properties": { "fid": 14, "objectId": "print_10", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.725764262376799, 36.104612624153816 ] } },
-{ "type": "Feature", "properties": { "fid": 15, "objectId": "park_01", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.724670787123543, 36.103563679566932 ] } },
-{ "type": "Feature", "properties": { "fid": 16, "objectId": "park_02", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.721233679389229, 36.103905081342845 ] } },
-{ "type": "Feature", "properties": { "fid": 17, "objectId": "park_03", "name": null }, "geometry": { "type": "Point", "coordinates": [ 103.722063269211844, 36.103618105937009 ] } }
-]
+  "type": "FeatureCollection",
+  "name": "03_campus_objects",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 1,
+        "objectId": "canteen_01",
+        "name": "新月餐厅"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.71982848947111,
+          36.106786380388904
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 2,
+        "objectId": "canteen_02",
+        "name": "朝阳餐厅"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.7202671989996,
+          36.10545046039619
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 3,
+        "objectId": "canteen_03",
+        "name": "食堂"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.71963057539807,
+          36.10563353091373
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 4,
+        "objectId": "canteen_04",
+        "name": "百苑餐厅"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.7235360797718,
+          36.11016576318531
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 5,
+        "objectId": "print_01",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72291759829365,
+          36.10574073436993
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 6,
+        "objectId": "print_02",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72185875800312,
+          36.10517997782974
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 7,
+        "objectId": "print_03",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72190823652137,
+          36.10579681002391
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 8,
+        "objectId": "print_04",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72164105252283,
+          36.10454665279617
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 9,
+        "objectId": "print_05",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72359050614179,
+          36.104919390967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 10,
+        "objectId": "print_06",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72391376579435,
+          36.10549334177868
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 11,
+        "objectId": "print_07",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72349814624106,
+          36.104246483118814
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 12,
+        "objectId": "print_08",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72750260765132,
+          36.111259238438585
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 13,
+        "objectId": "print_09",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72716615372721,
+          36.11031254945608
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 14,
+        "objectId": "print_10",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.7257642623768,
+          36.104612624153816
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 15,
+        "objectId": "park_01",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72467078712354,
+          36.10356367956693
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 16,
+        "objectId": "park_02",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72123367938923,
+          36.103905081342845
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 17,
+        "objectId": "park_03",
+        "name": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.72206326921184,
+          36.10361810593701
+        ]
+      }
+    }
+  ]
 }

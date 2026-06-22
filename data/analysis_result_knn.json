@@ -1,0 +1,20 @@
+[
+    {
+        "objectId": "canteen_04",
+        "value": 142.13,
+        "level": 1,
+        "label": "最近设施: 百苑餐厅",
+        "style": {
+            "color": "#3b82f6",
+            "opacity": 1.0
+        },
+        "description": "距离查询点约 142.13 米",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                103.7235360797718,
+                36.11016576318531
+            ]
+        }
+    }
+]

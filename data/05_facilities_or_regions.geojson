@@ -1,8 +1,47 @@
 {
-"type": "FeatureCollection",
-"name": "05_facilities_or_regions",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "fid": 1, "name": "兰州交通大学", "objectID": "campus_01" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 103.721363972820527, 36.113553392401329 ], [ 103.728160013015099, 36.111709549826465 ], [ 103.725322254280428, 36.102522981399751 ], [ 103.718593175798603, 36.103736854380784 ], [ 103.721363972820527, 36.113553392401329 ] ] ] } }
-]
+  "type": "FeatureCollection",
+  "name": "05_facilities_or_regions",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "fid": 1,
+        "name": "兰州交通大学",
+        "objectID": "campus_01"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              103.72136397282053,
+              36.11355339240133
+            ],
+            [
+              103.7281600130151,
+              36.111709549826465
+            ],
+            [
+              103.72532225428043,
+              36.10252298139975
+            ],
+            [
+              103.7185931757986,
+              36.103736854380784
+            ],
+            [
+              103.72136397282053,
+              36.11355339240133
+            ]
+          ]
+        ]
+      }
+    }
+  ]
 }
