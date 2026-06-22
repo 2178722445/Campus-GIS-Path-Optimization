@@ -74,21 +74,22 @@
 > 以下截图均来自 **CesiumJS 三维数字地球** 实时渲染，支持旋转、缩放、倾斜视角交互
 
 <p align="center">
-  <img src="visuals/等时圈分析结果截图.png" width="85%" alt="等时圈与盲区分析" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <img src="visuals/等时圈分析三维可视化结果.png" width="85%" alt="等时圈分析" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
 </p>
 
 <p align="center">
-  <em>▲ 从校园各食堂出发的 5/10/15 分钟步行等时圈，红色区域为未覆盖的服务盲区</em>
+  <em>▲ 随机选点出发的 5/10/15 分钟步行等时圈</em>
 </p>
 
 <br>
 
 <p align="center">
-  <img src="visuals/基于%20Dijkstra%20算法的校园最优步行路径规划示例.png" width="85%" alt="Dijkstra最短路径" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <img src="visuals/最短路径三维可视化结果.png" width="85%" alt="Dijkstra最短路径" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+   <img src="visuals/三维第一人称演示最短路径结果.png" width="85%" alt="Dijkstra最短路径" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
 </p>
 
 <p align="center">
-  <em>▲ 基于 Dijkstra 算法的校园最优步行路径规划，蓝色线条为推荐路径</em>
+  <em>▲ 基于 Dijkstra 算法的校园最优步行路径规划，红色线条为推荐路径及第一人称摄像头演示</em>
 </p>
 
 <br>
@@ -96,11 +97,11 @@
 <table align="center">
   <tr>
     <td align="center" width="50%">
-      <img src="visuals/KNN.png" width="95%" alt="KNN" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"><br>
+      <img src="visuals/最近邻三维可视化结果.png" width="95%" alt="KNN" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"><br>
       <em>▲ KNN 最近邻检索</em>
     </td>
     <td align="center" width="50%">
-      <img src="visuals/基于泰森多边形算法的校园食堂服务腹地划分图.png" width="95%" alt="Voronoi" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"><br>
+      <img src="visuals/服务分区三维可视化结果.png" width="95%" alt="Voronoi" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"><br>
       <em>▲ Voronoi 食堂服务分区</em>
     </td>
   </tr>
