@@ -1,4 +1,4 @@
-# 🏫 智慧校园 GIS 空间分析系统
+#  智慧校园 GIS 空间分析系统
 
 <p align="center">
   <b>Smart Campus GIS Spatial Analysis Engine</b><br>
@@ -44,18 +44,16 @@
 ## 🎥 功能演示
 
 <p align="center">
-  <b>👇 点击下方图片观看完整功能演示视频</b>
+  <b> 点击下方图片观看完整功能演示视频</b>
 </p>
 
 <!-- 将你的演示视频拖到 GitHub Issue 编辑框上传，复制生成的链接替换下方 src -->
 
 <p align="center">
-  <video src="https://github.com/你的用户名/Campus-GIS-Path-Optimization/assets/你的视频文件.mp4"
+  <video src="https://github.com/2178722445/Campus-GIS-Path-Optimization/assets/<!-- Failed to upload "三维系统演示.mp4" -->"
          controls="controls" width="90%" style="max-width: 900px; border-radius: 12px;">
   </video>
 </p>
-
-> 💡 **提示**：如果你还没有录制视频，可以用 [OBS Studio](https://obsproject.com/)（免费）录制 1-2 分钟的 CesiumJS 三维交互演示，展示地球旋转、路径动画、等时圈扩散等效果，然后拖到 GitHub Issue 编辑框中上传，把生成的链接替换上面即可。
 
 ---
 
