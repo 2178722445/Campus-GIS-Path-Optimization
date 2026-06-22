@@ -2,143 +2,1163 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>智慧校园三维分析集成系统 - 第七组正式版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧校园 GIS 空间分析系统</title>
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.105/Build/Cesium/Cesium.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.105/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     <style>
-        html, body, #cesiumContainer { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; background: #000; }
-        .ui-panel { position: absolute; left: 20px; top: 20px; background: rgba(15, 15, 15, 0.9); color: #fff; padding: 20px; border-radius: 12px; border: 2px solid #00d2ff; z-index: 10; width: 210px; box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); font-family: "Microsoft YaHei"; }
-        .instruction-panel { position: absolute; right: 60px; top: 20px; background: rgba(0, 0, 0, 0.8); color: #00ff00; padding: 15px; border-radius: 8px; border: 1px solid #00ff00; z-index: 10; width: 220px; font-size: 13px; line-height: 1.6; pointer-events: none; }
-        h2, h3 { margin: 0 0 10px 0; color: #00d2ff; text-align: center; }
-        .btn { display: block; width: 100%; padding: 10px; margin: 8px 0; background: #222; border: 1px solid #555; color: #fff; cursor: pointer; border-radius: 6px; transition: 0.3s; font-size: 14px; }
-        .btn:hover { background: #00d2ff; color: #000; font-weight: bold; }
-        .btn-clear { background: #800; border: none; margin-top: 20px; }
-        #loading-mask { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: #00d2ff; padding: 20px; border-radius: 10px; display: none; z-index: 100; }
+        :root {
+            --bg: #0a0e17;
+            --panel: rgba(15, 20, 32, 0.88);
+            --panel-border: rgba(255, 255, 255, 0.08);
+            --text: #e8edf5;
+            --muted: #8b95a8;
+            --accent: #4f8cff;
+            --accent-soft: rgba(79, 140, 255, 0.15);
+            --success: #34d399;
+            --warn: #fbbf24;
+            --danger: #f87171;
+            --radius: 14px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body, #cesiumContainer {
+            width: 100%; height: 100%; margin: 0; padding: 0;
+            overflow: hidden; background: var(--bg);
+            font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            color: var(--text);
+        }
+
+        .cesium-viewer-bottom, .cesium-viewer-toolbar { display: none !important; }
+
+        .app-header {
+            position: absolute; top: 0; left: 0; right: 0; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 28px; z-index: 20;
+            background: linear-gradient(180deg, rgba(10,14,23,0.95) 0%, rgba(10,14,23,0) 100%);
+            pointer-events: none;
+        }
+
+        .brand { pointer-events: auto; }
+        .brand h1 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: 0.5px; }
+        .brand p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+
+        .status-pill {
+            pointer-events: auto;
+            padding: 8px 16px; border-radius: 999px;
+            background: var(--panel); border: 1px solid var(--panel-border);
+            font-size: 12px; color: var(--muted);
+        }
+        .status-pill.ready { color: var(--success); border-color: rgba(52,211,153,0.3); }
+
+        .sidebar {
+            position: absolute; left: 20px; top: 80px; bottom: 20px; width: 380px;
+            z-index: 15; display: flex; flex-direction: column; gap: 10px;
+            pointer-events: none;
+        }
+
+        .panel {
+            pointer-events: auto;
+            background: var(--panel);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--radius);
+            padding: 14px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .panel-title {
+            font-size: 12px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--muted); margin-bottom: 10px;
+        }
+
+        .upload-grid { display: grid; gap: 8px; grid-template-columns: 1fr 1fr 1fr; }
+
+        .file-field {
+            border: 1px dashed rgba(255,255,255,0.15);
+            border-radius: 8px; padding: 10px; cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .file-field:hover { border-color: var(--accent); background: var(--accent-soft); }
+        .file-field input { display: none; }
+        .file-field .label { font-size: 12px; font-weight: 500; }
+        .file-field .hint { font-size: 10px; color: var(--muted); margin-top: 2px; }
+        .file-field .name { font-size: 10px; color: var(--accent); margin-top: 4px; word-break: break-all; }
+
+        .btn {
+            width: 100%; padding: 12px 16px; border: none; border-radius: 10px;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover { filter: brightness(1.08); }
+        .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+        .btn-ghost {
+            background: rgba(255,255,255,0.04); color: var(--text);
+            border: 1px solid var(--panel-border);
+        }
+        .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+        .btn-tour {
+            background: linear-gradient(135deg, #ef4444, #f97316); color: #fff;
+            border: none; width: 100%; padding: 12px 16px; border-radius: 10px;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-tour:hover { filter: brightness(1.1); }
+        .btn-tour:disabled { opacity: 0.45; cursor: not-allowed; }
+        .tour-speed { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 11px; color: var(--muted); }
+        .tour-speed input { flex: 1; accent-color: var(--accent); }
+
+        .data-stats {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 8px;
+        }
+        .stat {
+            background: rgba(255,255,255,0.03); border-radius: 8px;
+            padding: 8px 6px; text-align: center;
+        }
+        .stat .num { font-size: 18px; font-weight: 700; color: var(--accent); }
+        .stat .txt { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+        .analysis-panel { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+
+        .mode-group { display: grid; gap: 6px; margin-bottom: 8px; overflow-y: auto; flex-shrink: 0; max-height: 45%; }
+
+        .mode-btn {
+            text-align: left; padding: 8px 10px; border-radius: 8px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border);
+            color: var(--text); cursor: pointer; transition: 0.2s;
+        }
+        .mode-btn:hover { border-color: rgba(79,140,255,0.4); }
+        .mode-btn.active {
+            background: var(--accent-soft); border-color: var(--accent);
+            box-shadow: inset 0 0 0 1px rgba(79,140,255,0.2);
+        }
+        .mode-btn .title { font-size: 12px; font-weight: 600; }
+        .mode-btn .desc { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+        #result-panel {
+            flex: 1; overflow-y: auto; min-height: 60px;
+            background: rgba(0,0,0,0.25); border-radius: 8px;
+            padding: 10px; border: 1px solid var(--panel-border);
+        }
+
+        .result-card {
+            border-left: 3px solid var(--accent); padding: 10px 12px;
+            background: rgba(255,255,255,0.03); border-radius: 0 8px 8px 0;
+            margin-bottom: 8px;
+        }
+        .result-card b { display: block; font-size: 13px; margin-bottom: 4px; }
+        .result-card p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+        .empty-hint { text-align: center; color: var(--muted); font-size: 12px; padding: 24px 8px; }
+
+        .hint-bar {
+            position: absolute; right: 20px; top: 80px; z-index: 15;
+            max-width: 320px; padding: 14px 18px;
+            background: var(--panel); border: 1px solid var(--panel-border);
+            border-radius: var(--radius); backdrop-filter: blur(24px);
+            font-size: 13px; line-height: 1.6;
+        }
+        .hint-bar .tag {
+            display: inline-block; font-size: 11px; padding: 2px 8px;
+            border-radius: 4px; background: var(--accent-soft); color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .toast {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            padding: 12px 24px; border-radius: 10px; font-size: 13px;
+            background: rgba(20,25,40,0.95); border: 1px solid var(--panel-border);
+            z-index: 100; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
+        .toast.error { border-color: rgba(248,113,113,0.4); color: var(--danger); }
+        .toast.success { border-color: rgba(52,211,153,0.4); color: var(--success); }
+
+        .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+
+        .conn-banner {
+            position: fixed; top: 64px; left: 50%; transform: translateX(-50%);
+            z-index: 100; padding: 10px 20px; border-radius: 10px; font-size: 13px;
+            background: rgba(127,29,29,0.92); border: 1px solid rgba(248,113,113,0.5);
+            color: #fecaca; display: none; max-width: 90%; text-align: center;
+        }
+        .conn-banner.show { display: block; }
+        .conn-banner a { color: #93c5fd; }
     </style>
 </head>
 <body>
     <div id="cesiumContainer"></div>
-    <div id="loading-mask"> 正在调取 Python 算法...</div>
 
-    <div class="instruction-panel">
-        <h3 style="color:#00ff00; font-size:16px; border-bottom:1px solid #00ff00; padding-bottom:5px;">操作手册</h3>
-        1. 确保 app.py 已启动<br>
-        2. 点击左侧按钮触发空间分析<br>
-        3. <b>右上角按钮</b>可切换平面/3D<br>
-        4. 滚轮缩放，按住旋转视角
+    <header class="app-header">
+        <div class="brand">
+            <h1>智慧校园 GIS 空间分析系统</h1>
+            <p>数据导入 · 等时圈 · 最短路径 · 最近邻检索</p>
+        </div>
+        <div id="global-status" class="status-pill">数据未就绪</div>
+    </header>
+
+    <aside class="sidebar">
+        <section class="panel">
+            <div class="panel-title">数据导入</div>
+            <div class="upload-grid">
+                <label class="file-field" id="field-facilities">
+                    <input type="file" id="file-facilities" accept=".json,.geojson">
+                    <div class="label">设施点数据</div>
+                    <div class="hint">GeoJSON · 03_campus_objects.json</div>
+                    <div class="name" id="name-facilities">未选择文件</div>
+                </label>
+                <label class="file-field" id="field-roads">
+                    <input type="file" id="file-roads" accept=".json,.geojson">
+                    <div class="label">路网数据</div>
+                    <div class="hint">GeoJSON · 04_paths_or_roads.geojson</div>
+                    <div class="name" id="name-roads">未选择文件</div>
+                </label>
+                <label class="file-field" id="field-polygons">
+                    <input type="file" id="file-polygons" accept=".json,.geojson">
+                    <div class="label">面数据</div>
+                    <div class="hint">GeoJSON · 多边形区域数据</div>
+                    <div class="name" id="name-polygons">未选择文件</div>
+                </label>
+            </div>
+            <button class="btn btn-primary" id="btn-upload" style="margin-top:12px">上传并加载</button>
+            <div class="data-stats">
+                <div class="stat"><div class="num" id="stat-facilities">0</div><div class="txt">设施点</div></div>
+                <div class="stat"><div class="num" id="stat-roads">0</div><div class="txt">路网线段</div></div>
+                <div class="stat"><div class="num" id="stat-polygons">0</div><div class="txt">面区域</div></div>
+            </div>
+            <button class="btn btn-ghost" id="btn-locate" style="margin-top:10px;display:none" title="定位到数据范围">
+                📍 定位到当前数据
+            </button>
+        </section>
+
+        <section class="panel analysis-panel">
+            <div class="panel-title">空间分析</div>
+            <div class="mode-group">
+                <button class="mode-btn" data-mode="isochrone">
+                    <div class="title">等时圈分析</div>
+                    <div class="desc">在地图上点击 1 个点作为中心</div>
+                </button>
+                <button class="mode-btn" data-mode="path">
+                    <div class="title">最短路径分析</div>
+                    <div class="desc">依次点击起点与终点（共 2 点）</div>
+                </button>
+                <button class="mode-btn" data-mode="knn">
+                    <div class="title">最近邻分析</div>
+                    <div class="desc">点击 1 个点，查找最近设施</div>
+                </button>
+                <button class="mode-btn" data-mode="blind_spot">
+                    <div class="title">盲区分析</div>
+                    <div class="desc">自动检测道路盲区位置</div>
+                </button>
+                <button class="mode-btn" data-mode="voronoi">
+                    <div class="title">Voronoi分析</div>
+                    <div class="desc">生成设施服务区多边形</div>
+                </button>
+            </div>
+            <div id="result-panel"><div class="empty-hint">选择分析模式后，在地图上点击取点</div></div>
+            <div class="actions">
+                <button class="btn btn-ghost" id="btn-clear">清除分析结果</button>
+                <button class="btn btn-ghost" id="btn-clear-all">清除所有数据</button>
+                <button class="btn-tour" id="btn-start-tour" style="display:none">第一人称巡览</button>
+                <button class="btn-tour" id="btn-stop-tour" style="display:none">🛑 停止巡览</button>
+                <div class="tour-speed" id="tour-speed-panel" style="display:none">
+                    <span>🐢</span>
+                    <input type="range" id="tour-speed-slider" min="2" max="20" value="8" step="1">
+                    <span>🐇</span>
+                    <span id="tour-speed-label">8 m/s</span>
+                </div>
+            </div>
+        </section>
+    </aside>
+
+    <div class="hint-bar">
+        <div class="tag" id="mode-tag">待机</div>
+        <div id="hint-text">请先导入设施与路网数据，再选择分析功能。</div>
     </div>
 
-    <div class="ui-panel">
-        <h2>分析平台</h2>
-        <button class="btn" onclick="loadAnalysis('isochrone')"> 步行等时圈分析</button>
-        <button class="btn" onclick="loadAnalysis('path')"> 最短路径规划</button>
-        <button class="btn" onclick="loadAnalysis('knn')"> 最近设施检索</button>
-        <button class="btn" onclick="loadAnalysis('voronoi')"> 食堂服务分区</button>
-        <button class="btn" onclick="loadAnalysis('blind_spot')"> 覆盖盲区识别</button>
-        <button class="btn btn-clear" onclick="clearViewer()"> 清除所有结果</button>
-    </div>
+    <div id="conn-banner" class="conn-banner"></div>
+    <div id="toast" class="toast"></div>
 
     <script>
-        // 【填入你的 TOKEN】
         Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MWI5OTA4Zi1iYjYwLTQ2OTctOGUyNy0wMjRiNmQ4OThmMTgiLCJpZCI6NDQ1NjUxLCJpc3MiOiJodHRwczovL2FwaS5jZXNpdW0uY29tIiwiYXVkIjoidW5kZWZpbmVkX2RlZmF1bHQiLCJpYXQiOjE3ODE2OTA3NDl9.eyR4P5OpxtBfmvb1iCitHt2U-GbEM9RRumZEUyun3vo';
+
+        // 若直接双击打开 html，自动指向 Flask 后端
+        const API = (window.location.protocol === 'file:' || !window.location.host)
+            ? 'http://127.0.0.1:5000'
+            : window.location.origin;
 
         const viewer = new Cesium.Viewer('cesiumContainer', {
             imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
                 url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
             }),
             terrainProvider: Cesium.createWorldTerrain(),
-            sceneModePicker: true, 
-            baseLayerPicker: false, geocoder: false, homeButton: false, 
-            navigationHelpButton: false, timeline: false, animation: false
+            sceneModePicker: true,
+            baseLayerPicker: false,
+            geocoder: false,
+            homeButton: false,
+            navigationHelpButton: false,
+            animation: false,
+            timeline: false,
+            fullscreenButton: false,
         });
+        viewer.scene.globe.depthTestAgainstTerrain = true;
 
+        // OSM 3D 白模（需 Cesium Ion Token）
         viewer.scene.primitives.add(Cesium.createOsmBuildings());
 
+        let dataReady = false;
+        let currentMode = null;
+        let pickedCoords = [];
+        let tempEntities = [];
+        let baseDataSources = [];
+        let analysisEntities = [];
+        let roadDecorations = [];
+        let polygonDecorations = [];
+        let currentBounds = null;
+        let lastPathGeometry = null;
+
+        // 第一人称巡览
+        let tourActive = false;
+        let tourPathPoints = [];
+        let tourSegments = [];
+        let tourTotalDistance = 0;
+        let tourCurrentDistance = 0;
+        let tourSpeed = 8;
+        let tourLastTime = 0;
+        let tourTickListener = null;
+
+        const defaultCamera = { lon: 103.722, lat: 36.108, height: 1800 };
+
         viewer.camera.flyTo({
-            destination: Cesium.Cartesian3.fromDegrees(103.722, 36.108, 1300),
-            orientation: { heading: 0, pitch: Cesium.Math.toRadians(-35) }
+            destination: Cesium.Cartesian3.fromDegrees(defaultCamera.lon, defaultCamera.lat, defaultCamera.height),
+            orientation: { heading: 0, pitch: Cesium.Math.toRadians(-35) },
         });
 
-        const API_BASE = "http://127.0.0.1:5000/api/analysis/";
-
-        async function loadAnalysis(type) {
-            document.getElementById('loading-mask').style.display = 'block';
+        async function checkBackend() {
             try {
-                const response = await fetch(API_BASE + type);
-                const data = await response.json();
-                data.forEach(item => renderToCesium(item));
-                viewer.zoomTo(viewer.entities);
-            } catch (err) {
-                alert("无法连接到后端！");
-            } finally {
-                document.getElementById('loading-mask').style.display = 'none';
+                const res = await fetch(`${API}/api/health`, { method: 'GET' });
+                return res.ok;
+            } catch {
+                return false;
             }
         }
 
-        function renderToCesium(item) {
-            if (!item.geometry || !item.geometry.coordinates) return;
-            const geom = item.geometry;
-            const style = item.style || { color: "#00FF00", opacity: 0.6 };
-            const labelText = item.label || "分析要素";
+        function showConnBanner(msg) {
+            const el = document.getElementById('conn-banner');
+            el.innerHTML = msg;
+            el.classList.add('show');
+        }
 
-            // 1. 渲染面 (等时圈, 盲区等)
-            if (geom.type === "Polygon") {
-                viewer.entities.add({
-                    name: labelText,
-                    polygon: {
-                        hierarchy: Cesium.Cartesian3.fromDegreesArray(geom.coordinates[0].flat()),
-                        classificationType: Cesium.ClassificationType.BOTH, 
-                        material: Cesium.Color.fromCssColorString(style.color).withAlpha(style.opacity),
-                        outline: true, outlineColor: Cesium.Color.WHITE
-                    },
-                    description: item.description
-                });
-            } 
-            // 2. 渲染线 (路径规划)
-            else if (geom.type === "LineString") {
-                viewer.entities.add({
-                    polyline: {
-                        positions: Cesium.Cartesian3.fromDegreesArray(geom.coordinates.flat()),
-                        width: 8,
-                        material: new Cesium.PolylineGlowMaterialProperty({
-                            glowPower: 0.25, color: Cesium.Color.fromCssColorString(style.color || "#ff4500")
-                        }),
-                        clampToGround: true 
-                    }
-                });
+        async function initBackend() {
+            const ok = await checkBackend();
+            if (ok) {
+                document.getElementById('conn-banner').classList.remove('show');
+                return true;
             }
-            // 3. 渲染点 (最近邻设施) - 【本次核心修复点】
-            else if (geom.type === "Point") {
-                const lon = geom.coordinates[0];
-                const lat = geom.coordinates[1];
+            const tip = window.location.protocol === 'file:'
+                ? '你正在直接打开 HTML 文件。请先在终端运行 <b>python app.py</b>，再用浏览器访问 <a href="http://127.0.0.1:5000" target="_blank">http://127.0.0.1:5000</a>'
+                : '后端未连接。请确认终端中 <b>python app.py</b> 正在运行，并访问 <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a>';
+            showConnBanner(tip);
+            showToast('后端未连接，请先运行 python app.py', 'error');
+            return false;
+        }
+
+        function showToast(msg, type = '') {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.className = 'toast show' + (type ? ' ' + type : '');
+            clearTimeout(el._timer);
+            el._timer = setTimeout(() => el.classList.remove('show'), 2800);
+        }
+
+        function setHint(tag, text) {
+            document.getElementById('mode-tag').textContent = tag;
+            document.getElementById('hint-text').textContent = text;
+        }
+
+        function updateStatus(status) {
+            dataReady = status.ready;
+            document.getElementById('stat-facilities').textContent = status.facilityCount || 0;
+            document.getElementById('stat-roads').textContent = status.roadCount || 0;
+            document.getElementById('stat-polygons').textContent = status.polygonCount || 0;
+            const pill = document.getElementById('global-status');
+            const btnLocate = document.getElementById('btn-locate');
+            if (status.ready) {
+                pill.textContent = `数据就绪 · ${status.facilityCount} 设施 · ${status.roadCount} 路段 · ${status.polygonCount} 面区域`;
+                pill.classList.add('ready');
+                btnLocate.style.display = 'block';
+            } else {
+                pill.textContent = '数据未就绪';
+                pill.classList.remove('ready');
+                btnLocate.style.display = 'none';
+            }
+        }
+
+        function clearTempMarkers() {
+            tempEntities.forEach(e => viewer.entities.remove(e));
+            tempEntities = [];
+        }
+
+        function clearAnalysis() {
+            analysisEntities.forEach(e => viewer.entities.remove(e));
+            analysisEntities = [];
+            clearTempMarkers();
+            pickedCoords = [];
+        }
+
+        function clearBaseData() {
+            baseDataSources.forEach(ds => viewer.dataSources.remove(ds));
+            baseDataSources = [];
+            roadDecorations.forEach(e => viewer.entities.remove(e));
+            roadDecorations = [];
+            polygonDecorations.forEach(e => viewer.entities.remove(e));
+            polygonDecorations = [];
+        }
+
+        async function loadDataStatus() {
+            try {
+                const res = await fetch(`${API}/api/data/status`);
+                if (!res.ok) throw new Error('status failed');
+                const status = await res.json();
+                updateStatus(status);
+                return status;
+            } catch {
+                updateStatus({ ready: false, facilityCount: 0, roadCount: 0 });
+                return { ready: false, facilities: false, roads: false, facilityCount: 0, roadCount: 0 };
+            }
+        }
+
+        async function loadMapPreview() {
+            clearBaseData();
+            const res = await fetch(`${API}/api/data/preview`);
+            const data = await res.json();
+
+            // 加载路网 - 亮色宽路基，清晰可见
+            if (data.roads) {
+                const ds = await Cesium.GeoJsonDataSource.load(data.roads, {
+                    stroke: Cesium.Color.fromCssColorString('#f59e0b'),
+                    strokeWidth: 20,
+                    clampToGround: true,
+                });
+                viewer.dataSources.add(ds);
+                baseDataSources.push(ds);
                 
-                viewer.entities.add({
-                    name: labelText,
-                    position: Cesium.Cartesian3.fromDegrees(lon, lat),
-                    point: { 
-                        pixelSize: 15, 
-                        color: Cesium.Color.CYAN, 
-                        outlineColor: Cesium.Color.WHITE, 
-                        outlineWidth: 3,
-                        // 修复1：将点紧贴地形/建筑表面
-                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-                        // 修复2：禁止深度测试，防止点被埋在楼房模型下面看不到
-                        disableDepthTestDistance: Number.POSITIVE_INFINITY 
-                    },
-                    label: { 
-                        text: labelText, 
-                        font: 'bold 16px 微软雅黑',
-                        // 修复3：文字也设为贴地参考，并向上偏移防止重叠
-                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-                        pixelOffset: new Cesium.Cartesian2(0, -50), 
-                        showBackground: true,
-                        backgroundColor: new Cesium.Color(0,0,0,0.8),
-                        disableDepthTestDistance: Number.POSITIVE_INFINITY 
+                ds.entities.values.forEach(entity => {
+                    const polyline = entity.polyline;
+                    if (polyline) {
+                        polyline.material = new Cesium.PolylineGlowMaterialProperty({
+                            glowPower: 0.12,
+                            color: Cesium.Color.fromCssColorString('#f59e0b')
+                        });
+                        polyline.width = 22;
+                        polyline.clampToGround = true;
+                        const positions = polyline.positions;
+                        if (positions && positions.getValue) {
+                            const centerLine = viewer.entities.add({
+                                polyline: {
+                                    positions: positions.getValue(Cesium.JulianDate.now()),
+                                    width: 5,
+                                    material: new Cesium.PolylineDashMaterialProperty({
+                                        color: Cesium.Color.WHITE,
+                                        dashLength: 16,
+                                        gapLength: 10
+                                    }),
+                                    clampToGround: true,
+                                },
+                            });
+                            roadDecorations.push(centerLine);
+                        }
                     }
                 });
             }
+
+            // 加载面数据
+            if (data.polygons) {
+                const ds = await Cesium.GeoJsonDataSource.load(data.polygons, {
+                    fill: Cesium.Color.fromCssColorString('#22d3ee').withAlpha(0.25),
+                    stroke: Cesium.Color.fromCssColorString('#22d3ee'),
+                    strokeWidth: 3,
+                    clampToGround: true,
+                });
+                viewer.dataSources.add(ds);
+                baseDataSources.push(ds);
+                
+                ds.entities.values.forEach(entity => {
+                    const polygon = entity.polygon;
+                    if (polygon) {
+                        polygon.outline = true;
+                        polygon.outlineColor = Cesium.Color.fromCssColorString('#22d3ee');
+                        polygon.outlineWidth = 3;
+                        polygon.material = Cesium.Color.fromCssColorString('#06b6d4').withAlpha(0.2);
+                    }
+                });
+            }
+
+            // 加载设施点 - 使用图钉样式图标
+            if (data.facilities) {
+                const ds = await Cesium.GeoJsonDataSource.load(data.facilities, {
+                    markerColor: Cesium.Color.fromCssColorString('#8b5cf6'),
+                    markerSize: 24,
+                    clampToGround: true,
+                });
+                viewer.dataSources.add(ds);
+                baseDataSources.push(ds);
+                
+                ds.entities.values.forEach(entity => {
+                    const point = entity.point;
+                    if (point) {
+                        point.pixelSize = 24;
+                        point.color = Cesium.Color.fromCssColorString('#8b5cf6');
+                        point.outlineColor = Cesium.Color.WHITE;
+                        point.outlineWidth = 3;
+                        point.disableDepthTestDistance = Number.POSITIVE_INFINITY;
+                        point.heightReference = Cesium.HeightReference.CLAMP_TO_GROUND;
+                    }
+                    
+                    const position = entity.position;
+                    if (position) {
+                        const pos = position.getValue(Cesium.JulianDate.now());
+                        // 底部光晕圆
+                        const glow = viewer.entities.add({
+                            position: pos,
+                            point: {
+                                pixelSize: 36,
+                                color: Cesium.Color.fromCssColorString('#8b5cf6').withAlpha(0.2),
+                                disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                                heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                            },
+                        });
+                        polygonDecorations.push(glow);
+                        
+                        // 使用 billboard 图钉图标
+                        const name = entity.properties?.getValue?.()?.name 
+                            || entity.properties?.name?.getValue?.() 
+                            || '';
+                        entity.billboard = {
+                            image: 'data:image/svg+xml,' + encodeURIComponent(
+                                '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="44" viewBox="0 0 32 44">' +
+                                '<defs><filter id="s"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.4"/></filter></defs>' +
+                                '<path d="M16 0C7.16 0 0 7.16 0 16c0 10 16 28 16 28s16-18 16-28C32 7.16 24.84 0 16 0z" fill="#8b5cf6" filter="url(#s)"/>' +
+                                '<circle cx="16" cy="14" r="7" fill="#fff" opacity="0.9"/>' +
+                                '<circle cx="16" cy="14" r="4" fill="#8b5cf6"/>' +
+                                '</svg>'
+                            ),
+                            scale: 0.8,
+                            verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                            disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                            pixelOffset: new Cesium.Cartesian2(0, 0),
+                        };
+                        
+                        if (name) {
+                            entity.label = {
+                                text: name,
+                                font: 'bold 13px "PingFang SC", "Microsoft YaHei", sans-serif',
+                                fillColor: Cesium.Color.WHITE,
+                                showBackground: true,
+                                backgroundColor: Cesium.Color.fromCssColorString('rgba(139,92,246,0.9)'),
+                                backgroundPadding: new Cesium.Cartesian2(8, 4),
+                                pixelOffset: new Cesium.Cartesian2(0, -48),
+                                heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                                disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                            };
+                        }
+                    }
+                });
+            }
+
+            const status = await loadDataStatus();
+            if (status.bounds) {
+                currentBounds = status.bounds;
+                viewer.camera.flyTo({
+                    destination: Cesium.Rectangle.fromDegrees(
+                        status.bounds.west - 0.003,
+                        status.bounds.south - 0.003,
+                        status.bounds.east + 0.003,
+                        status.bounds.north + 0.003
+                    ),
+                    duration: 1.8,
+                });
+            }
         }
-        function clearViewer() { viewer.entities.removeAll(); }
+
+        document.getElementById('file-facilities').addEventListener('change', e => {
+            document.getElementById('name-facilities').textContent =
+                e.target.files[0]?.name || '未选择文件';
+        });
+        document.getElementById('file-roads').addEventListener('change', e => {
+            document.getElementById('name-roads').textContent =
+                e.target.files[0]?.name || '未选择文件';
+        });
+        document.getElementById('file-polygons').addEventListener('change', e => {
+            document.getElementById('name-polygons').textContent =
+                e.target.files[0]?.name || '未选择文件';
+        });
+
+        document.getElementById('btn-upload').addEventListener('click', async () => {
+            const fac = document.getElementById('file-facilities').files[0];
+            const roads = document.getElementById('file-roads').files[0];
+            const polygons = document.getElementById('file-polygons').files[0];
+            if (!fac && !roads && !polygons) {
+                showToast('请至少选择一个数据文件', 'error');
+                return;
+            }
+
+            const form = new FormData();
+            if (fac) form.append('facilities', fac);
+            if (roads) form.append('roads', roads);
+            if (polygons) form.append('polygons', polygons);
+
+            const btn = document.getElementById('btn-upload');
+            btn.disabled = true;
+            btn.textContent = '上传中...';
+
+            try {
+                const res = await fetch(`${API}/api/data/upload`, { method: 'POST', body: form });
+                const result = await res.json();
+                if (!result.ok) {
+                    showToast(result.errors?.join('；') || '上传失败', 'error');
+                    return;
+                }
+                showToast('数据上传成功', 'success');
+                await loadMapPreview();
+                setHint('待机', '数据已加载，请选择分析功能并在地图上取点。');
+            } catch {
+                showToast('上传失败：后端未连接。请运行 python app.py 后访问 http://127.0.0.1:5000', 'error');
+                showConnBanner('后端未连接。请在 Cursor 终端运行 <b>python app.py</b>，浏览器打开 <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a>（不要直接双击 index.html）');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '上传并加载';
+            }
+        });
+
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const mode = btn.dataset.mode;
+                const status = await loadDataStatus();
+
+                if (mode === 'isochrone' && !status.roads) {
+                    showToast('请先导入路网数据', 'error');
+                    return;
+                }
+                if (mode === 'path' && !status.roads) {
+                    showToast('请先导入路网数据', 'error');
+                    return;
+                }
+                if (mode === 'knn' && !status.facilities) {
+                    showToast('请先导入设施数据', 'error');
+                    return;
+                }
+                if (mode === 'blind_spot' && !status.roads) {
+                    showToast('请先导入路网数据', 'error');
+                    return;
+                }
+                if (mode === 'voronoi' && !status.facilities) {
+                    showToast('请先导入设施数据', 'error');
+                    return;
+                }
+                activateMode(mode, btn);
+            });
+        });
+
+        function activateMode(mode, btn) {
+            currentMode = mode;
+            pickedCoords = [];
+            clearTempMarkers();
+            clearAnalysis();
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const hints = {
+                isochrone: ['等时圈', '在地图上点击 1 个点作为等时圈中心'],
+                path: ['最短路径', '点击第 1 个点：起点'],
+                knn: ['最近邻', '在地图上点击 1 个查询点'],
+                blind_spot: ['盲区分析', '正在分析道路盲区...'],
+                voronoi: ['Voronoi分析', '正在生成服务区...'],
+            };
+            
+            setHint(...hints[mode]);
+            
+            // 盲区分和Voronoi不需要点击，直接执行
+            if (mode === 'blind_spot' || mode === 'voronoi') {
+                document.getElementById('result-panel').innerHTML =
+                    '<div class="empty-hint">算法计算中...</div>';
+                runAnalysis(mode, {});
+            } else {
+                document.getElementById('result-panel').innerHTML =
+                    '<div class="empty-hint">等待地图取点...</div>';
+            }
+        }
+
+        function addTempMarker(cartesian, label) {
+            // 添加外圈光晕
+            const glow = viewer.entities.add({
+                position: cartesian,
+                point: {
+                    pixelSize: 32,
+                    color: Cesium.Color.fromCssColorString('#fbbf24').withAlpha(0.25),
+                    heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                    disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                },
+            });
+            tempEntities.push(glow);
+            
+            // 添加主标记点
+            const marker = viewer.entities.add({
+                position: cartesian,
+                point: {
+                    pixelSize: 18,
+                    color: Cesium.Color.fromCssColorString('#fbbf24'),
+                    outlineColor: Cesium.Color.WHITE,
+                    outlineWidth: 3,
+                    heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                    disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                },
+                label: label ? {
+                    text: label,
+                    font: 'bold 14px sans-serif',
+                    fillColor: Cesium.Color.WHITE,
+                    showBackground: true,
+                    backgroundColor: Cesium.Color.fromCssColorString('rgba(0,0,0,0.75)'),
+                    backgroundPadding: new Cesium.Cartesian2(8, 4),
+                    pixelOffset: new Cesium.Cartesian2(0, -38),
+                    heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                    disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                } : undefined,
+            });
+            tempEntities.push(marker);
+            return marker;
+        }
+
+        // 等时圈颜色渐变配置
+        const isochroneColors = [
+            Cesium.Color.fromCssColorString('#22c55e').withAlpha(0.15),  // 绿色 - 近圈
+            Cesium.Color.fromCssColorString('#84cc16').withAlpha(0.2),
+            Cesium.Color.fromCssColorString('#eab308').withAlpha(0.25),  // 黄色
+            Cesium.Color.fromCssColorString('#f97316').withAlpha(0.3),  // 橙色
+            Cesium.Color.fromCssColorString('#ef4444').withAlpha(0.35),  // 红色 - 远圈
+        ];
+
+        async function renderResultItem(item) {
+            const geom = item.geometry;
+            const style = item.style || { color: '#4f8cff', opacity: 0.6 };
+            const color = Cesium.Color.fromCssColorString(style.color).withAlpha(style.opacity || 0.8);
+            let entity;
+
+            if (geom.type === 'Polygon') {
+                const ring = geom.coordinates[0];
+                const flat = ring.flat();
+                
+                // 等时圈使用渐变色彩
+                let fillColor = color;
+                if (item.label && item.label.includes('分钟')) {
+                    const idx = Math.min(parseInt(item.label) / 5, isochroneColors.length - 1);
+                    fillColor = isochroneColors[Math.floor(idx)] || color;
+                }
+                
+                entity = viewer.entities.add({
+                    polygon: {
+                        hierarchy: Cesium.Cartesian3.fromDegreesArray(flat),
+                        material: fillColor,
+                        outline: true,
+                        outlineColor: Cesium.Color.fromCssColorString('#ffffff').withAlpha(0.5),
+                        outlineWidth: 2,
+                        classificationType: Cesium.ClassificationType.BOTH,
+                    },
+                });
+            } else if (geom.type === 'LineString') {
+                const lineColor = Cesium.Color.fromCssColorString('#ef4444');
+                const lineWidth = 6;
+                const coords = geom.coordinates;
+
+                const cartographics = coords.map(c => Cesium.Cartographic.fromDegrees(c[0], c[1]));
+                const sampled = await Cesium.sampleTerrainMostDetailed(viewer.terrainProvider, cartographics);
+
+                const heights = [];
+                for (const s of sampled) {
+                    heights.push(
+                        Cesium.Math.toDegrees(s.longitude),
+                        Cesium.Math.toDegrees(s.latitude),
+                        s.height + 3
+                    );
+                }
+
+                entity = viewer.entities.add({
+                    polyline: {
+                        positions: Cesium.Cartesian3.fromDegreesArrayHeights(heights),
+                        width: lineWidth + 8,
+                        material: Cesium.Color.fromCssColorString('#991b1b').withAlpha(0.5),
+                        clampToGround: false,
+                    },
+                });
+                analysisEntities.push(entity);
+
+                entity = viewer.entities.add({
+                    polyline: {
+                        positions: Cesium.Cartesian3.fromDegreesArrayHeights(heights),
+                        width: lineWidth,
+                        material: new Cesium.PolylineGlowMaterialProperty({
+                            glowPower: 0.35,
+                            color: lineColor,
+                        }),
+                        clampToGround: false,
+                    },
+                });
+                lastPathGeometry = geom;
+            } else if (geom.type === 'Point') {
+                // 添加光晕
+                const glow = viewer.entities.add({
+                    position: Cesium.Cartesian3.fromDegrees(geom.coordinates[0], geom.coordinates[1]),
+                    point: {
+                        pixelSize: 40,
+                        color: color.withAlpha(0.2),
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                    },
+                });
+                analysisEntities.push(glow);
+                
+                entity = viewer.entities.add({
+                    position: Cesium.Cartesian3.fromDegrees(geom.coordinates[0], geom.coordinates[1]),
+                    point: {
+                        pixelSize: 20,
+                        color: color,
+                        outlineColor: Cesium.Color.WHITE,
+                        outlineWidth: 3,
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                    },
+                    label: {
+                        text: item.label,
+                        font: 'bold 14px sans-serif',
+                        fillColor: Cesium.Color.WHITE,
+                        showBackground: true,
+                        backgroundColor: Cesium.Color.fromCssColorString('rgba(0,0,0,0.8)'),
+                        backgroundPadding: new Cesium.Cartesian2(10, 5),
+                        pixelOffset: new Cesium.Cartesian2(0, -42),
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                    },
+                });
+            }
+            if (entity) analysisEntities.push(entity);
+        }
+
+        async function runAnalysis(type, params) {
+            const panel = document.getElementById('result-panel');
+            panel.innerHTML = '<div class="empty-hint">算法计算中...</div>';
+
+            let url = `${API}/api/analysis/${type}?`;
+            for (const k in params) url += `${k}=${params[k]}&`;
+
+            try {
+                const res = await fetch(url);
+                const json = await res.json();
+                if (!json.ok) {
+                    panel.innerHTML = `<div class="empty-hint">${json.error || '分析失败'}</div>`;
+                    showToast(json.error || '分析失败', 'error');
+                    exitMode();
+                    return;
+                }
+
+                const data = json.data || [];
+                panel.innerHTML = '';
+                for (const item of data) {
+                    await renderResultItem(item);
+                    const card = document.createElement('div');
+                    card.className = 'result-card';
+                    card.innerHTML = `<b>${item.label || '分析结果'}</b><p>${item.description || ''}</p>`;
+                    panel.appendChild(card);
+                }
+
+                exitMode();
+
+                if (lastPathGeometry) {
+                    document.getElementById('btn-start-tour').style.display = 'block';
+                }
+
+                if (analysisEntities.length) {
+                    viewer.flyTo(analysisEntities, { duration: 1.2 });
+                }
+                showToast('分析完成', 'success');
+                setHint('完成', '分析结果已渲染，可继续选择其他功能。');
+            } catch {
+                panel.innerHTML = '<div class="empty-hint">接口请求失败</div>';
+                showToast('后端未响应，请运行 python app.py', 'error');
+                exitMode();
+            }
+        }
+
+        function exitMode() {
+            currentMode = null;
+            pickedCoords = [];
+            clearTempMarkers();
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        }
+
+        function startPathTour() {
+            if (!lastPathGeometry) {
+                showToast('没有可用的路径数据', 'error');
+                return;
+            }
+
+            const coords = lastPathGeometry.coordinates;
+            const cartographics = coords.map(c => Cesium.Cartographic.fromDegrees(c[0], c[1]));
+
+            Cesium.sampleTerrainMostDetailed(viewer.terrainProvider, cartographics)
+                .then(sampled => {
+                    tourPathPoints = sampled.map(s => ({
+                        lon: Cesium.Math.toDegrees(s.longitude),
+                        lat: Cesium.Math.toDegrees(s.latitude),
+                        height: s.height + 1.7
+                    }));
+
+                    tourSegments = [];
+                    tourTotalDistance = 0;
+                    for (let i = 0; i < tourPathPoints.length - 1; i++) {
+                        const a = Cesium.Cartesian3.fromDegrees(
+                            tourPathPoints[i].lon, tourPathPoints[i].lat, tourPathPoints[i].height);
+                        const b = Cesium.Cartesian3.fromDegrees(
+                            tourPathPoints[i + 1].lon, tourPathPoints[i + 1].lat, tourPathPoints[i + 1].height);
+                        const d = Cesium.Cartesian3.distance(a, b);
+                        tourSegments.push({ fromIndex: i, toIndex: i + 1, length: d, cumulativeStart: tourTotalDistance });
+                        tourTotalDistance += d;
+                    }
+
+                    if (tourTotalDistance < 1) {
+                        showToast('路径太短，无法巡览', 'error');
+                        return;
+                    }
+
+                    tourCurrentDistance = 0;
+                    tourLastTime = 0;
+                    tourActive = true;
+
+                    document.getElementById('btn-start-tour').style.display = 'none';
+                    document.getElementById('btn-stop-tour').style.display = 'block';
+                    document.getElementById('tour-speed-panel').style.display = 'flex';
+
+                    const first = tourPathPoints[0];
+                    const second = tourPathPoints[Math.min(1, tourPathPoints.length - 1)];
+                    const heading = calculateHeading(first.lon, first.lat, second.lon, second.lat);
+
+                    viewer.camera.flyTo({
+                        destination: Cesium.Cartesian3.fromDegrees(first.lon, first.lat, first.height),
+                        orientation: {
+                            heading: heading,
+                            pitch: Cesium.Math.toRadians(-8),
+                            roll: 0
+                        },
+                        duration: 0.8,
+                    });
+
+                    setTimeout(() => {
+                        tourLastTime = performance.now() / 1000;
+                        tourTickListener = viewer.clock.onTick.addEventListener(onTourTick);
+                    }, 900);
+
+                    showToast('第一人称巡览开始，可用鼠标自由环顾四周', 'success');
+                });
+        }
+
+        function onTourTick(clock) {
+            if (!tourActive || tourPathPoints.length < 2) {
+                stopPathTour();
+                return;
+            }
+
+            const now = performance.now() / 1000;
+            if (tourLastTime === 0) tourLastTime = now;
+            const dt = Math.min(now - tourLastTime, 0.1);
+            tourLastTime = now;
+
+            tourCurrentDistance += tourSpeed * dt;
+
+            if (tourCurrentDistance >= tourTotalDistance) {
+                stopPathTour();
+                showToast('巡览完成，已到达终点', 'success');
+                return;
+            }
+
+            let seg = null;
+            for (const s of tourSegments) {
+                if (tourCurrentDistance >= s.cumulativeStart && tourCurrentDistance < s.cumulativeStart + s.length) {
+                    seg = s;
+                    break;
+                }
+            }
+            if (!seg) return;
+
+            const t = Math.min((tourCurrentDistance - seg.cumulativeStart) / seg.length, 1);
+            const from = tourPathPoints[seg.fromIndex];
+            const to = tourPathPoints[seg.toIndex];
+            const curLon = from.lon + (to.lon - from.lon) * t;
+            const curLat = from.lat + (to.lat - from.lat) * t;
+            const curHeight = from.height + (to.height - from.height) * t;
+
+            viewer.scene.camera.position = Cesium.Cartesian3.fromDegrees(curLon, curLat, curHeight);
+        }
+
+        function calculateHeading(lon1, lat1, lon2, lat2) {
+            const dLon = Cesium.Math.toRadians(lon2 - lon1);
+            const lat1r = Cesium.Math.toRadians(lat1);
+            const lat2r = Cesium.Math.toRadians(lat2);
+            const y = Math.sin(dLon) * Math.cos(lat2r);
+            const x = Math.cos(lat1r) * Math.sin(lat2r) - Math.sin(lat1r) * Math.cos(lat2r) * Math.cos(dLon);
+            return Math.atan2(y, x);
+        }
+
+        function stopPathTour() {
+            tourActive = false;
+            if (tourTickListener) {
+                viewer.clock.onTick.removeEventListener(tourTickListener);
+                tourTickListener = null;
+            }
+            tourLastTime = 0;
+            document.getElementById('btn-start-tour').style.display = 'block';
+            document.getElementById('btn-stop-tour').style.display = 'none';
+            document.getElementById('tour-speed-panel').style.display = 'none';
+        }
+
+        const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+        handler.setInputAction(click => {
+            if (!currentMode) return;
+
+            const cartesian = viewer.scene.pickPosition(click.position);
+            if (!cartesian) return;
+
+            const carto = Cesium.Cartographic.fromCartesian(cartesian);
+            const lon = Cesium.Math.toDegrees(carto.longitude);
+            const lat = Cesium.Math.toDegrees(carto.latitude);
+
+            if (currentMode === 'path') {
+                pickedCoords.push({ lon, lat });
+                const marker = addTempMarker(cartesian, pickedCoords.length === 1 ? '起点' : '终点');
+                if (pickedCoords.length === 1) {
+                    setHint('最短路径', '点击第 2 个点：终点');
+                } else {
+                    currentMode = null;
+                    runAnalysis('path', {
+                        slon: pickedCoords[0].lon, slat: pickedCoords[0].lat,
+                        elon: lon, elat: lat,
+                    });
+                }
+            } else if (currentMode === 'isochrone') {
+                addTempMarker(cartesian, '中心');
+                // 添加持久化的高亮中心点
+                const highlightGlow = viewer.entities.add({
+                    position: cartesian,
+                    point: {
+                        pixelSize: 48,
+                        color: Cesium.Color.fromCssColorString('#f59e0b').withAlpha(0.2),
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                    },
+                });
+                const highlightMarker = viewer.entities.add({
+                    position: cartesian,
+                    point: {
+                        pixelSize: 22,
+                        color: Cesium.Color.fromCssColorString('#f59e0b'),
+                        outlineColor: Cesium.Color.WHITE,
+                        outlineWidth: 4,
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                    },
+                    label: {
+                        text: `等时圈中心\n${lon.toFixed(5)}, ${lat.toFixed(5)}`,
+                        font: 'bold 13px sans-serif',
+                        fillColor: Cesium.Color.WHITE,
+                        showBackground: true,
+                        backgroundColor: Cesium.Color.fromCssColorString('rgba(245,158,11,0.85)'),
+                        backgroundPadding: new Cesium.Cartesian2(10, 5),
+                        pixelOffset: new Cesium.Cartesian2(0, -48),
+                        heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+                        disableDepthTestDistance: Number.POSITIVE_INFINITY,
+                    },
+                });
+                analysisEntities.push(highlightGlow, highlightMarker);
+                runAnalysis('isochrone', { lon, lat });
+            } else if (currentMode === 'knn') {
+                addTempMarker(cartesian, '查询点');
+                runAnalysis('knn', { lon, lat });
+            }
+        }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+        document.getElementById('btn-locate').addEventListener('click', () => {
+            if (!currentBounds) {
+                showToast('请先加载数据', 'error');
+                return;
+            }
+            viewer.camera.flyTo({
+                destination: Cesium.Rectangle.fromDegrees(
+                    currentBounds.west - 0.003,
+                    currentBounds.south - 0.003,
+                    currentBounds.east + 0.003,
+                    currentBounds.north + 0.003
+                ),
+                duration: 1.5,
+            });
+            showToast('已定位到数据区域', 'success');
+        });
+
+        document.getElementById('btn-clear').addEventListener('click', () => {
+            clearAnalysis();
+            exitMode();
+            stopPathTour();
+            lastPathGeometry = null;
+            document.getElementById('btn-start-tour').style.display = 'none';
+            document.getElementById('result-panel').innerHTML =
+                '<div class="empty-hint">分析结果已清除</div>';
+            setHint('待机', '请选择分析功能并在地图上取点。');
+        });
+
+        document.getElementById('btn-clear-all').addEventListener('click', () => {
+            clearAnalysis();
+            clearBaseData();
+            exitMode();
+            currentBounds = null;
+            document.getElementById('result-panel').innerHTML =
+                '<div class="empty-hint">所有数据已清除</div>';
+            document.getElementById('stat-facilities').textContent = '0';
+            document.getElementById('stat-roads').textContent = '0';
+            document.getElementById('stat-polygons').textContent = '0';
+            document.getElementById('global-status').textContent = '数据未就绪';
+            document.getElementById('global-status').classList.remove('ready');
+            document.getElementById('btn-locate').style.display = 'none';
+            document.getElementById('name-facilities').textContent = '未选择文件';
+            document.getElementById('name-roads').textContent = '未选择文件';
+            document.getElementById('name-polygons').textContent = '未选择文件';
+            document.getElementById('file-facilities').value = '';
+            document.getElementById('file-roads').value = '';
+            document.getElementById('file-polygons').value = '';
+            setHint('待机', '请导入数据后选择分析功能。');
+            showToast('所有数据已清除', 'success');
+            lastPathGeometry = null;
+            document.getElementById('btn-start-tour').style.display = 'none';
+            stopPathTour();
+        });
+
+        document.getElementById('btn-start-tour').addEventListener('click', startPathTour);
+
+        document.getElementById('btn-stop-tour').addEventListener('click', () => {
+            stopPathTour();
+            showToast('巡览已停止', 'success');
+        });
+
+        document.getElementById('tour-speed-slider').addEventListener('input', (e) => {
+            tourSpeed = parseInt(e.target.value);
+            document.getElementById('tour-speed-label').textContent = tourSpeed + ' m/s';
+        });
+
+        initBackend().then(async ok => {
+            if (!ok) return;
+            const status = await loadDataStatus();
+            if (status.facilities || status.roads) {
+                await loadMapPreview();
+                setHint('待机', '已有数据加载，可直接选择分析功能。');
+            }
+        });
     </script>
 </body>
 </html>
