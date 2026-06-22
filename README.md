@@ -1,4 +1,4 @@
-#  智慧校园 GIS 空间分析系统
+# 🏫 智慧校园 GIS 空间分析系统
 
 <p align="center">
   <b>Smart Campus GIS Spatial Analysis Engine</b><br>
@@ -17,8 +17,9 @@
 ## 目录
 
 - [项目简介](#项目简介)
+- [🎥 功能演示](#-功能演示)
 - [核心功能](#核心功能)
-- [可视化预览](#可视化预览)
+- [三维可视化预览](#三维可视化预览)
 - [技术架构](#技术架构)
 - [项目结构](#项目结构)
 - [快速开始](#快速开始)
@@ -40,6 +41,24 @@
 
 ---
 
+## 🎥 功能演示
+
+<p align="center">
+  <b>👇 点击下方图片观看完整功能演示视频</b>
+</p>
+
+<!-- 将你的演示视频拖到 GitHub Issue 编辑框上传，复制生成的链接替换下方 src -->
+
+<p align="center">
+  <video src="https://github.com/你的用户名/Campus-GIS-Path-Optimization/assets/你的视频文件.mp4"
+         controls="controls" width="90%" style="max-width: 900px; border-radius: 12px;">
+  </video>
+</p>
+
+> 💡 **提示**：如果你还没有录制视频，可以用 [OBS Studio](https://obsproject.com/)（免费）录制 1-2 分钟的 CesiumJS 三维交互演示，展示地球旋转、路径动画、等时圈扩散等效果，然后拖到 GitHub Issue 编辑框中上传，把生成的链接替换上面即可。
+
+---
+
 ## 核心功能
 
 | 序号 | 功能模块 | 核心算法 | 空间复杂度 | 应用场景 |
@@ -52,31 +71,42 @@
 
 ---
 
-## 可视化预览
+## 三维可视化预览
 
-### 等时圈 & 盲区分析
+> 以下截图均来自 **CesiumJS 三维数字地球** 实时渲染，支持旋转、缩放、倾斜视角交互
 
-![等时圈分析](visuals/等时圈分析结果截图.png)
+<p align="center">
+  <img src="visuals/等时圈分析结果截图.png" width="85%" alt="等时圈与盲区分析" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+</p>
 
-*从校园各食堂出发的 5/10/15 分钟步行等时圈，红色区域为未覆盖的服务盲区*
+<p align="center">
+  <em>▲ 从校园各食堂出发的 5/10/15 分钟步行等时圈，红色区域为未覆盖的服务盲区</em>
+</p>
 
-### 最短路径规划
+<br>
 
-![Dijkstra路径](visuals/基于%20Dijkstra%20算法的校园最优步行路径规划示例.png)
+<p align="center">
+  <img src="visuals/基于%20Dijkstra%20算法的校园最优步行路径规划示例.png" width="85%" alt="Dijkstra最短路径" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+</p>
 
-*基于 Dijkstra 算法的校园最优步行路径规划，蓝色线条为推荐路径*
+<p align="center">
+  <em>▲ 基于 Dijkstra 算法的校园最优步行路径规划，蓝色线条为推荐路径</em>
+</p>
 
-### KNN 最近邻检索
+<br>
 
-![KNN](visuals/KNN.png)
-
-*点击任意位置，毫秒级返回最近的校园设施*
-
-### Voronoi 服务分区
-
-![Voronoi](visuals/基于泰森多边形算法的校园食堂服务腹地划分图.png)
-
-*基于泰森多边形算法划分的校园食堂服务腹地，每种颜色对应一个食堂的理论服务范围*
+<table align="center">
+  <tr>
+    <td align="center" width="50%">
+      <img src="visuals/KNN.png" width="95%" alt="KNN" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"><br>
+      <em>▲ KNN 最近邻检索</em>
+    </td>
+    <td align="center" width="50%">
+      <img src="visuals/基于泰森多边形算法的校园食堂服务腹地划分图.png" width="95%" alt="Voronoi" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);"><br>
+      <em>▲ Voronoi 食堂服务分区</em>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -193,7 +223,7 @@ Campus-GIS-Path-Optimization/
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/你的用户名/Campus-GIS-Path-Optimization.git
+git clone https://github.com/2178722445/Campus-GIS-Path-Optimization.git
 cd Campus-GIS-Path-Optimization
 
 # 2. 创建虚拟环境（推荐）
