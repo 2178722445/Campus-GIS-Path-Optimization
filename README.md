@@ -1,4 +1,4 @@
-# 🏫 智慧校园 GIS 空间分析系统
+#  智慧校园 GIS 空间分析系统
 
 <p align="center">
   <b>Smart Campus GIS Spatial Analysis Engine</b><br>
